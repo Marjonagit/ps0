@@ -3,6 +3,8 @@
  */
 package turtle;
 
+import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -33,20 +35,16 @@ public class TurtleSoup {
      * @param sides number of sides, where sides must be > 2
      * @return angle in degrees, where 0 <= angle < 360
      */
-    public static double calculateRegularPolygonAngle(int sides) {
-        throw new RuntimeException("implement me!");
+    public static int calculateRegularPolygonSides(double angle) {
+    if (angle <= 0 || angle >= 180) {
+        throw new IllegalArgumentException("Angle must be greater than 0 and less than 180 degrees.");
     }
+    double sides = 360 / angle;
+    return (int) Math.round(sides);
+}
 
-    /**
-     * Determine number of sides given the size of interior angles of a regular polygon.
-     * 
-     * There is a simple formula for this; you should derive it and use it here.
-     * Make sure you *properly round* the answer before you return it (see java.lang.Math).
-     * HINT: it is easier if you think about the exterior angles.
-     * 
-     * @param angle size of interior angles in degrees, where 0 < angle < 180
-     * @return the integer number of sides
-     */
+
+
     public static int calculatePolygonSidesFromAngle(double angle) {
         throw new RuntimeException("implement me!");
     }
@@ -61,8 +59,15 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawRegularPolygon(Turtle turtle, int sides, int sideLength) {
-        throw new RuntimeException("implement me!");
+    if (sides < 3) {
+        throw new IllegalArgumentException("A polygon must have at least 3 sides.");
     }
+    for (int i = 0; i < sides; i++) {
+        turtle.forward(sideLength);
+        turtle.turn(360.0 / sides);
+    }
+}
+
 
     /**
      * Given the current direction, current location, and a target location, calculate the heading
@@ -84,9 +89,18 @@ public class TurtleSoup {
      *         must be 0 <= angle < 360
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
-                                                 int targetX, int targetY) {
-        throw new RuntimeException("implement me!");
+                                              int targetX, int targetY) {
+    int deltaX = targetX - currentX;
+    int deltaY = targetY - currentY;
+    double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+    double adjustedAngle = angle - currentHeading;
+    if (adjustedAngle < 0) {
+        adjustedAngle += 360;
     }
+    return adjustedAngle;
+}
+
+
 
     /**
      * Given a sequence of points, calculate the heading adjustments needed to get from each point
@@ -103,8 +117,23 @@ public class TurtleSoup {
      *         otherwise of size (# of points) - 1
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        throw new RuntimeException("implement me!");
+    List<Double> headings = new ArrayList<>();
+    if (xCoords.size() != yCoords.size()) {
+        throw new IllegalArgumentException("xCoords and yCoords must be of the same size.");
     }
+    if (xCoords.size() < 2) {
+        return headings;
+    }
+    double currentHeading = 0; // Assuming turtle starts facing up
+    for (int i = 0; i < xCoords.size() - 1; i++) {
+        double heading = calculateHeadingToPoint(currentHeading, xCoords.get(i), yCoords.get(i),
+                                                 xCoords.get(i + 1), yCoords.get(i + 1));
+        headings.add(heading);
+        currentHeading += heading; // Update current heading
+    }
+    return headings;
+}
+
 
     /**
      * Draw your personal, custom art.
@@ -114,9 +143,8 @@ public class TurtleSoup {
      * 
      * @param turtle the turtle context
      */
-    public static void drawPersonalArt(Turtle turtle) {
-        throw new RuntimeException("implement me!");
-    }
+
+
 
     /**
      * Main method.
@@ -125,13 +153,37 @@ public class TurtleSoup {
      * 
      * @param args unused
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         DrawableTurtle turtle = new DrawableTurtle();
 
         drawSquare(turtle, 40);
+
+        double angle = 60; // Example angle
+        int sides = calculateRegularPolygonSides(angle);
+        System.out.println("Number of sides in a regular polygon with angle " + angle + " degrees: " + sides);
+
+        int numSides = 5; // Example number of sides
+        drawRegularPolygon(turtle, numSides, 50);
+
+        double currentHeading = 0; // Example current heading
+        int currentX = 0, currentY = 0; // Example current position
+        int targetX = 50, targetY = 50; // Example target position
+        double headingToPoint = calculateHeadingToPoint(currentHeading, currentX, currentY, targetX, targetY);
+        System.out.println("Heading adjustment to point to (" + targetX + ", " + targetY + "): " + headingToPoint + " degrees");
+
+        Arrays Arrays = null;
+        List<Integer> xCoords = Arrays.asList(0, 50, 100); // Example x-coordinates
+        List<Integer> yCoords = Arrays.asList(0, 50, 0);    // Example y-coordinates
+        List<Double> headings = calculateHeadings(xCoords, yCoords);
+        System.out.println("Heading adjustments between points: " + headings);
+
+
 
         // draw the window
         turtle.draw();
     }
 
+    public static double calculateRegularPolygonAngle(int i) {
+        return 0;
+    }
 }

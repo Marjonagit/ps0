@@ -3,6 +3,8 @@
  */
 package turtle;
 
+import java.awt.*;
+
 /**
  * Turtle interface.
  * 
@@ -40,4 +42,15 @@ public interface Turtle {
      */
     public void draw();
 
+    void penDown();
+
+    void drawCircle(int i);
+
+    void penUp();
+
+    void backward(int i);
+
+    void color(Color green);
+
+    void curve(int petalSize, int arcAngle);
 }

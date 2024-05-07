@@ -3,6 +3,7 @@
  */
 package turtle;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,5 +70,35 @@ public class DrawableTurtle implements Turtle {
             (new TurtleGUI(actionList, CANVAS_WIDTH, CANVAS_HEIGHT)).setVisible(true);
         });
         return;
+    }
+
+    @Override
+    public void penDown() {
+
+    }
+
+    @Override
+    public void drawCircle(int i) {
+
+    }
+
+    @Override
+    public void penUp() {
+
+    }
+
+    @Override
+    public void backward(int i) {
+
+    }
+
+    @Override
+    public void color(Color green) {
+
+    }
+
+    @Override
+    public void curve(int petalSize, int arcAngle) {
+
     }
 }
