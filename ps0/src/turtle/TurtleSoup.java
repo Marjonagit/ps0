@@ -26,6 +26,7 @@ public class TurtleSoup {
         turtle.forward(sideLength);
     }
 
+
     /**
      * Determine inside angles of a regular polygon.
      * 

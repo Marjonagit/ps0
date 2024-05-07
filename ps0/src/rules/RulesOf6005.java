@@ -51,6 +51,7 @@ public class RulesOf6005 {
         return false;
     }
 
+
     
     /**
      * Main method of the class.

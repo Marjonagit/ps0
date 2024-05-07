@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+
 /**
  * JUnit tests for RulesOf6005.
  */
